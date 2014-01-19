@@ -197,7 +197,6 @@ public class AtbService {
 	}
 
 	public synchronized static Account getAccount(String user, String password) throws KeyManagementException, UnrecoverableKeyException, ClientProtocolException, NoSuchAlgorithmException, KeyStoreException, IOException, XPatherException, AuthenticationFailureException, ParseException {
-		Log.i("service", "getAccount()");
 		AtbContext context = new AtbContext(user, password);
 		
 		// Login and extract the login params
@@ -211,13 +210,10 @@ public class AtbService {
 		// Logout
 		logout(context, getSessionId(loginParams));
 		
-		Log.i("service", "getAccount() => OK");
 		return account;
 	}
 	
 	public synchronized static List<Transaction> getHistory(String user, String password, Date start, Date stop) throws KeyManagementException, UnrecoverableKeyException, ClientProtocolException, NoSuchAlgorithmException, KeyStoreException, IOException, IllegalStateException, XPatherException, ParseException, AuthenticationFailureException {
-		Log.i("service", "getHistory()");
-		
 		AtbContext context = new AtbContext(user, password);
 		// Login and extract the login params
 		List<NameValuePair> loginParams = getLoginParams(context, ACCOUNT_STATEMENT_PAGE);
@@ -258,7 +254,6 @@ public class AtbService {
 		// Logout
 		logout(context, getSessionId(loginParams));
 		
-		Log.i("service", String.format("getHistory()=%d", transactionList.size()));
 		return transactionList;
 	}
 
