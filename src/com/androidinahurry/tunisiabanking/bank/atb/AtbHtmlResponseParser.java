@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.service;
+package com.androidinahurry.tunisiabanking.bank.atb;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -37,10 +37,12 @@ import org.htmlcleaner.SimpleHtmlSerializer;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
 
-import com.androidinahurry.atb.model.Account;
-import com.androidinahurry.atb.model.Transaction;
+import com.androidinahurry.tunisiabanking.model.Account;
+import com.androidinahurry.tunisiabanking.model.Transaction;
+import com.androidinahurry.tunisiabanking.service.BankServiceException;
+import com.androidinahurry.tunisiabanking.service.ErrorCode;
 
-public class HtmlParser {
+public class AtbHtmlResponseParser {
 	
 	private static String getFirstNodeText(TagNode root, String xPath) throws XPatherException {
 		return ((TagNode)(root.evaluateXPath(xPath))[0]).getText().toString();
@@ -73,11 +75,10 @@ public class HtmlParser {
 	}
 	
 	
-	public static List<NameValuePair> parseHomePage(HttpResponse homePage) throws IOException, AuthenticationFailureException {
+	public static List<NameValuePair> parseHomePage(HttpResponse homePage) throws IOException, BankServiceException {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		// Search for the line with the javascript
-		// top.frames.frmfoot.goIn('90176345183736~~HNI','OMARBELKHODJA','HNI','/mesComptes/MesPositions/Solde_Operation.asp','0')
 		InputStream inputStream = homePage.getEntity().getContent();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -128,7 +129,7 @@ public class HtmlParser {
 			
 			// Check session parameter for bad bad authentication parameters
 			if(sessionId.equals("~~VISITOR")) {
-				throw new AuthenticationFailureException(); 
+				throw new BankServiceException(ErrorCode.AUTHENTICATION_FAILED); 
 			}
 		}
 		

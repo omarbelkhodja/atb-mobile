@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.service;
+package com.androidinahurry.tunisiabanking.model;
 
-public enum ErrorCode {
-	NO_ERROR,
-	AUTHENTICATION_FAILED,
-	NETWORK_UNREACHABLE,
-	SSL_FAILED,
-	UNKNOWN
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class Account {
+	public String number;
+	public String userName;
+	public BigDecimal balance;
+	public String currency;
+	public Date lastTransactionDate;
 }

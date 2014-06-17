@@ -14,40 +14,33 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.service;
+package com.androidinahurry.tunisiabanking.service;
 
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.http.client.ClientProtocolException;
-import org.htmlcleaner.XPatherException;
-
 import android.content.Context;
 
-import com.androidinahurry.atb.model.Transaction;
 import com.androidinahurry.network.utils.Response;
 import com.androidinahurry.network.utils.WebServiceLoader;
+import com.androidinahurry.tunisiabanking.model.Transaction;
 
 public class HistoryLoader  extends WebServiceLoader<Response<List<Transaction>, ErrorCode>> {
 
 	private String mUser;
 	private String mPassword;
+	private BankService mBankService;
 	private Date mStartDate;
 	private Date mStopDate;
 
-	public HistoryLoader(Context context, String user, String password, Date start, Date stop) {
+	public HistoryLoader(Context context, BankService bankService, String user, String password, Date start, Date stop) {
 		super(context);
 		
 		mUser = user;
 		mPassword = password;
 		mStartDate = start;
 		mStopDate = stop;
+		mBankService = bankService;
 	}
 
 	@Override
@@ -59,28 +52,10 @@ public class HistoryLoader  extends WebServiceLoader<Response<List<Transaction>,
 		Response<List<Transaction>, ErrorCode> response = new Response<List<Transaction>, ErrorCode>();
 		
 		try {
-			response.data = AtbService.getHistory(mUser, mPassword, mStartDate, mStopDate);
+			response.data = mBankService.getHistory(mUser, mPassword, mStartDate, mStopDate);
 			response.errorCode = ErrorCode.NO_ERROR;
-		} catch (KeyManagementException e) {
-			response.errorCode = ErrorCode.SSL_FAILED;
-		} catch (UnrecoverableKeyException e) {
-			response.errorCode = ErrorCode.SSL_FAILED;
-		} catch (ClientProtocolException e) {
-			response.errorCode = ErrorCode.SSL_FAILED;
-		} catch (NoSuchAlgorithmException e) {
-			response.errorCode = ErrorCode.SSL_FAILED;
-		} catch (KeyStoreException e) {
-			response.errorCode = ErrorCode.SSL_FAILED;
-		} catch (IOException e) {
-			response.errorCode = ErrorCode.NETWORK_UNREACHABLE;
-		} catch (XPatherException e) {
-			response.errorCode = ErrorCode.UNKNOWN;
-		} catch (IllegalStateException e) {
-			response.errorCode = ErrorCode.UNKNOWN;
-		} catch (ParseException e) {
-			response.errorCode = ErrorCode.UNKNOWN;
-		} catch (AuthenticationFailureException e) {
-			response.errorCode = ErrorCode.AUTHENTICATION_FAILED;
+		} catch (BankServiceException e) {
+			response.errorCode = e.getErrorCode();
 		}
 		storeLoadedData(response);
 

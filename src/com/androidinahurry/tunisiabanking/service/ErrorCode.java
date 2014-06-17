@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.service;
+package com.androidinahurry.tunisiabanking.service;
 
-public class AuthenticationFailureException extends Exception {
-
+public enum ErrorCode {
+	NO_ERROR,
+	AUTHENTICATION_FAILED,
+	NETWORK_UNREACHABLE,
+	SSL_FAILED,
+	UNKNOWN
 }

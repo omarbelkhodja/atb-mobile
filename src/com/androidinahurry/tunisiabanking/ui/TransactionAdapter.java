@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.ui;
+package com.androidinahurry.tunisiabanking.ui;
 
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
 import com.androidinahurry.atb.R;
-import com.androidinahurry.atb.model.Transaction;
+import com.androidinahurry.tunisiabanking.model.Transaction;
 import com.androidinahurry.utils.EasyFormatter;
 import com.androidinahurry.utils.ViewHolder;
 

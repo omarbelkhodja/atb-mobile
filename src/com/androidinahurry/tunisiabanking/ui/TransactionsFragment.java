@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.ui;
+package com.androidinahurry.tunisiabanking.ui;
 
 import java.util.Date;
 import java.util.List;
@@ -29,10 +29,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.androidinahurry.atb.R;
-import com.androidinahurry.atb.model.Transaction;
-import com.androidinahurry.atb.service.ErrorCode;
-import com.androidinahurry.atb.service.HistoryLoader;
 import com.androidinahurry.network.utils.Response;
+import com.androidinahurry.tunisiabanking.bank.atb.AtbService;
+import com.androidinahurry.tunisiabanking.model.Transaction;
+import com.androidinahurry.tunisiabanking.service.ErrorCode;
+import com.androidinahurry.tunisiabanking.service.HistoryLoader;
 import com.androidinahurry.utils.LoadingSupportFragment;
 import com.androidinahurry.utils.LoadingViewListener;
 
@@ -88,7 +89,7 @@ public class TransactionsFragment extends LoadingSupportFragment<Response<List<T
 
 	@Override
 	public Loader<Response<List<Transaction>, ErrorCode>> onCreateLoader(int arg0, Bundle arg1) {
-		return new HistoryLoader(getActivity(), getUser(), getPassword(), getStartDate(), getStopDate());
+		return new HistoryLoader(getActivity(), new AtbService(), getUser(), getPassword(), getStartDate(), getStopDate());
 	}
 
 	@Override

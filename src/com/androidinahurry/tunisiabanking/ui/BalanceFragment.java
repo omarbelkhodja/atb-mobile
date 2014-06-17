@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.ui;
+package com.androidinahurry.tunisiabanking.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,10 +26,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.androidinahurry.atb.R;
-import com.androidinahurry.atb.model.Account;
-import com.androidinahurry.atb.service.AccountLoader;
-import com.androidinahurry.atb.service.ErrorCode;
 import com.androidinahurry.network.utils.Response;
+import com.androidinahurry.tunisiabanking.bank.atb.AtbService;
+import com.androidinahurry.tunisiabanking.model.Account;
+import com.androidinahurry.tunisiabanking.service.AccountLoader;
+import com.androidinahurry.tunisiabanking.service.ErrorCode;
 import com.androidinahurry.utils.EasyFormatter;
 import com.androidinahurry.utils.LoadingSupportFragment;
 import com.androidinahurry.utils.LoadingViewListener;
@@ -90,7 +91,7 @@ public class BalanceFragment extends LoadingSupportFragment<Response<Account, Er
 
 	@Override
 	public Loader<Response<Account, ErrorCode>> onCreateLoader(int id, Bundle bundle) {
-		return new AccountLoader(getActivity(), getUser(), getPassword());
+		return new AccountLoader(getActivity(), new AtbService(), getUser(), getPassword());
 	}
 
 	@Override

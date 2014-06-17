@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.ui;
+package com.androidinahurry.tunisiabanking.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,9 +33,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidinahurry.atb.R;
-import com.androidinahurry.atb.service.ErrorCode;
-import com.androidinahurry.atb.service.LoginLoader;
 import com.androidinahurry.network.utils.Response;
+import com.androidinahurry.tunisiabanking.bank.atb.AtbService;
+import com.androidinahurry.tunisiabanking.service.ErrorCode;
+import com.androidinahurry.tunisiabanking.service.LoginLoader;
 import com.androidinahurry.utils.DialogUtils;
 import com.androidinahurry.utils.DialogUtils.LoginFailureDialogFragment;
 
@@ -53,8 +54,6 @@ public class LoginActivity extends FragmentActivity implements LoaderManager.Loa
 	private EditText userEditText;
 	private EditText passwordEditText;
 	private LoginFailureDialogFragment loginFailureDialog;
-	
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +103,7 @@ public class LoginActivity extends FragmentActivity implements LoaderManager.Loa
 
 	@Override
 	public Loader<Response<Boolean, ErrorCode>> onCreateLoader(int id, Bundle bundle) {
-		return new LoginLoader(this, bundle.getString(LOADER_ARG_USER), bundle.getString(LOADER_ARG_PASSWORD));
+		return new LoginLoader(this, new AtbService(), bundle.getString(LOADER_ARG_USER), bundle.getString(LOADER_ARG_PASSWORD));
 	}
 
 	@Override

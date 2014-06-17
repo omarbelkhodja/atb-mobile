@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.model;
+package com.androidinahurry.tunisiabanking.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Account {
-	public String number;
-	public String userName;
-	public BigDecimal balance;
-	public String currency;
-	public Date lastTransactionDate;
+public class Transaction {
+	public Date transactionDate;
+	public Date valueDate;
+	public String description;
+	public String reference;
+	public BigDecimal moneyOut;
+	public BigDecimal moneyIn;
 }

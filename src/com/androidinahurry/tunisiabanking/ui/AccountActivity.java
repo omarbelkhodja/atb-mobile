@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.androidinahurry.atb.ui;
+package com.androidinahurry.tunisiabanking.ui;
 
 import java.util.Calendar;
 import java.util.Date;
